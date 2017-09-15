@@ -27,4 +27,5 @@ Here is a sample communication:
 
 . How can kubectl configuration be obtained?
 . How would Slack authenticate with AWS and pass the credentials to chatbot?
+. Allow instance size to be specified in the intent
 
