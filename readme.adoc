@@ -1,0 +1,25 @@
+= Kubernetes Chatbot
+
+This repository contains the code for creating a Kubernetes chatbot using Amazon Lex.
+
+The users can interact with this chatbot using the following means:
+
+. Text (Slack)
+
+Other possible integrations are:
+
+. Text (Phone/SMS, Facebook Messenger)
+. Voice (Alexa, Phone/Call)
+
+== Slack
+
+. Get yourself invited to the team: <ADD LINK>
+. DM with the user `k8s_chatbot`
+. Create cluster using the following commands:
+
+    create a 3 master 3 worker cluster in us-west-1
+
+Here is a sample communication:
+
+<ADD IMAGE>
+
