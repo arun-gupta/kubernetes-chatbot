@@ -19,6 +19,10 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
 
         if ("CreateIntent".equals(request.getCurrentIntent().getName())) {
             return getCreateResponse(request.getCurrentIntent().getSlots());
+        } else if ("ScaleIntent".equals(request.getCurrentIntent().getName())) {
+            return getScaleResponse(request.getCurrentIntent().getSlots());
+        } else if ("DeleteIntent".equals(request.getCurrentIntent().getName())) {
+            return getDeleteResponse(request.getCurrentIntent().getSlots());
         } else if ("AMAZON.HelpIntent".equals(request.getCurrentIntent().getName())) {
             return getHelpResponse();
         } else {
@@ -29,6 +33,12 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
     private LexResponse getCreateResponse(Map<String, String> slots) {
         KubernetesCluster cluster = getCluster(slots);
 
+        // kops create cluster {name}
+        // --master-count {masterNodes}
+        // --node-count {workerNodes}
+        // --zones {availabilityZone}
+        // --state=s3://{s3Bucket}
+        // --yes
         return LexResponse.getLexResponse("Do you want to create a Kubernetes cluster " +
                 "named " + cluster.name + " with " +
                 cluster.masterNodes + " master nodes, " +
@@ -37,16 +47,40 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
                 "using " + cluster.s3Bucket + " s3 bucket?", "Kubernetes cluster create");
     }
 
-    private KubernetesCluster getCluster(Map<String, String> slots) {
-        KubernetesCluster cluster = new KubernetesCluster(
-                Integer.parseInt(slots.get("master")),
-                Integer.parseInt(slots.get("worker")));
+    private LexResponse getScaleResponse(Map<String, String> slots) {
+        KubernetesCluster cluster = getCluster(slots);
 
-        if (slots.get("region") == null)
+        return LexResponse.getLexResponse("Do you want to scale the Kubernetes cluster " +
+                "named " + cluster.name + " with " +
+                cluster.masterNodes + " worker nodes?", "Kubernetes cluster scale");
+    }
+
+    private LexResponse getDeleteResponse(Map<String, String> slots) {
+        KubernetesCluster cluster = getCluster(slots);
+
+        // kops delete cluster --name={name} --yes
+        return LexResponse.getLexResponse("Do you want to delete the Kubernetes cluster named "
+                + cluster.name + "?", "Kubernetes cluster delete");
+    }
+
+    private KubernetesCluster getCluster(Map<String, String> slots) {
+        KubernetesCluster cluster = new KubernetesCluster();
+
+        if (slots.get("master") == null)
+            cluster.setMasterNodes(3);
+
+        if (slots.get("worker") == null)
+            cluster.setWorkerNodes(3);
+
+        if (slots.get("region") == null) {
             cluster.setRegion(KubernetesCluster.DEFAULT_REGION);
 
+            // get the list of AZ in this region using API
+            cluster.setAvailabilityZone("");
+        }
+
         if (slots.get("s3") == null) {
-            // create a s3 bucket name
+            // create a s3 bucket and use that name
             String s3 = "";
             cluster.setS3Bucket(s3);
         }

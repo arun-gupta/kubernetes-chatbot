@@ -6,21 +6,9 @@ public class KubernetesCluster {
     String region;
     String s3Bucket;
     String name;
+    String availabilityZone;
 
     static final String DEFAULT_REGION = "us-west-1";
-
-    public KubernetesCluster(int masterNodes, int workerNodes) {
-        this.masterNodes = masterNodes;
-        this.workerNodes = workerNodes;
-    }
-
-    public KubernetesCluster(int masterNodes, int workerNodes, String region, String s3Bucket, String name) {
-        this.masterNodes = masterNodes;
-        this.workerNodes = workerNodes;
-        this.region = region;
-        this.s3Bucket = s3Bucket;
-        this.name = name;
-    }
 
     public int getMasterNodes() {
         return masterNodes;
@@ -60,5 +48,13 @@ public class KubernetesCluster {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getAvailabilityZone() {
+        return availabilityZone;
+    }
+
+    public void setAvailabilityZone(String availabilityZone) {
+        this.availabilityZone = availabilityZone;
     }
 }

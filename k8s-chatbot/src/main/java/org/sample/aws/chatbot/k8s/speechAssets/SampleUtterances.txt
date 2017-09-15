@@ -14,7 +14,7 @@ CreateIntent create a kubernetes cluster with {master} master nodes, {worker} wo
 
 CreateIntent create a kubernetes cluster with {master} masters, {worker} workers, in {region} region, and use {s3} bucket
 
-ScaleIntent scale the cluster {name} up by 2 worker nodes
-ScaleIntent scale the cluster {name} down by 2 worker nodes
+ScaleIntent scale the kubernetes cluster {name} up by 2 worker nodes
+ScaleIntent scale the kubernetes cluster {name} down by 2 worker nodes
 
-DeleteIntent delete the cluster
+DeleteIntent delete the kubernetes cluster {name}
