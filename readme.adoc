@@ -23,3 +23,8 @@ Here is a sample communication:
 
 <ADD IMAGE>
 
+== Issues
+
+. How can kubectl configuration be obtained?
+. How would Slack authenticate with AWS and pass the credentials to chatbot?
+
