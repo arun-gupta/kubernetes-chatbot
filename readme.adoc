@@ -25,17 +25,7 @@ Here is a sample communication:
 
 This bot can be integrated with your own Slack team by following the instructions ADD LINK.
 
-== Issues
+== TODO
 
-. How can kubectl configuration be obtained? Currently kops updates local `kubeconfig` and has no intuititive way to return the configuration information.
-. How would Slack authenticate with AWS and pass the credentials to chatbot?
-. Allow instance size to be specified in the intent
-. Voice integration
-.. How would AWS authentication work
-.. How would the API server URI be returned
-.. How would a cryptic cluster name be returned
-.. User may ask to return details via an email/SMS/slack
-. How can kops scale an existing cluster
-. Add a new intent to upgrade a cluster
-
+Defined in https://github.com/arun-gupta/kubernetes-chatbot/issues
 
