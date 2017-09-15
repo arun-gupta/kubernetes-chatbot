@@ -67,12 +67,7 @@
                             {
                                 "functionName": "KubernetesChatbot",
                                 "description": "Kubernetes Chatbot",
-                                "handler": "org.sample.aws.alexa.chatbot.KubernetesSpeechletRequestStreamHandler",
-                                "triggers": [
-                                    {
-                                        "integration": "Alexa Skills Kit"
-                                    }
-                                ]
+                                "handler": "org.sample.aws.chatbot.k8s.KubernetesBot",
                             }
                         ]
                     </lambdaFunctionsJSON>

@@ -27,18 +27,37 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
     }
 
     private LexResponse getCreateResponse(Map<String, String> slots) {
-        KubernetesCluster cluster = new KubernetesCluster(
-                Integer.parseInt(slots.get("master")),
-                Integer.parseInt(slots.get("worker")),
-                slots.get("region"),
-                slots.get("s3")
-        );
+        KubernetesCluster cluster = getCluster(slots);
 
-        return LexResponse.getLexResponse("Do you want to create a Kubernetes cluster with " +
+        return LexResponse.getLexResponse("Do you want to create a Kubernetes cluster " +
+                "named " + cluster.name + " with " +
                 cluster.masterNodes + " master nodes, " +
                 cluster.workerNodes + " worker nodes," +
                 "in " + cluster.region + " region" +
                 "using " + cluster.s3Bucket + " s3 bucket?", "Kubernetes cluster create");
+    }
+
+    private KubernetesCluster getCluster(Map<String, String> slots) {
+        KubernetesCluster cluster = new KubernetesCluster(
+                Integer.parseInt(slots.get("master")),
+                Integer.parseInt(slots.get("worker")));
+
+        if (slots.get("region") == null)
+            cluster.setRegion(KubernetesCluster.DEFAULT_REGION);
+
+        if (slots.get("s3") == null) {
+            // create a s3 bucket name
+            String s3 = "";
+            cluster.setS3Bucket(s3);
+        }
+
+        if (slots.get("name") == null) {
+            // create a cluster name
+            String name = "";
+            cluster.setName(name);
+        }
+
+        return cluster;
     }
 
     private LexResponse getHelpResponse() {

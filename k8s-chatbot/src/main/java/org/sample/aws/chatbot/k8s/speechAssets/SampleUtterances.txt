@@ -1,9 +1,20 @@
-CreateIntent create a {master} master {worker} worker cluster in {region} and use {s3} bucket
-CreateIntent create a {master} master {worker} worker nodes cluster in {region}
-CreateIntent create a {master} master and {worker} worker cluster in {region}
-CreateIntent create a {master} master nodes and {worker} worker nodes cluster in {region}
+CreateIntent create a kubernetes cluster
+CreateIntent create a kubernetes cluster with {worker} worker
+CreateIntent create a kubernetes cluster with {worker} worker nodes
+CreateIntent create a kubernetes cluster with {master} master
+CreateIntent create a kubernetes cluster with {master} master nodes
+CreateIntent create a kubernetes cluster with {master} master and {worker} worker
+CreateIntent create a kubernetes cluster with {master} masters and {worker} workers
+CreateIntent create a kubernetes cluster with {master} master nodes and {worker} worker nodes
 
-ScaleIntent scale the cluster up by 2 worker nodes
-ScaleIntent scale the cluster down by 2 worker nodes
+CreateIntent create a kubernetes cluster with {master} master, {worker} worker, in {region} region
+CreateIntent create a kubernetes cluster with {master} master node, {worker} worker node, in {region} region
+CreateIntent create a kubernetes cluster with {master} masters, {worker} workers, in {region} region
+CreateIntent create a kubernetes cluster with {master} master nodes, {worker} worker nodes, in {region} region
+
+CreateIntent create a kubernetes cluster with {master} masters, {worker} workers, in {region} region, and use {s3} bucket
+
+ScaleIntent scale the cluster {name} up by 2 worker nodes
+ScaleIntent scale the cluster {name} down by 2 worker nodes
 
 DeleteIntent delete the cluster
