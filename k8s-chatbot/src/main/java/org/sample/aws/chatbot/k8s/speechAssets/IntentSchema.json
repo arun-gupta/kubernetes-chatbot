@@ -3,10 +3,35 @@
     {
       "intent": "CreateIntent",
       "slots": [
-          {
-            "name": "character",
-            "type": "STAR_WARS_CHARACTERS"
-          }
+        {
+          "name": "master",
+          "type": "integer"
+        },
+        {
+          "name": "worker",
+          "type": "integer"
+        },
+        {
+          "name": "region",
+          "type": "string"
+        },
+        {
+          "name": "s3",
+          "type": "name"
+        },
+        {
+          "name": "name",
+          "type": "string"
+        }
+      ]
+    },
+    {
+      "intent": "DeleteIntent",
+      "slots": [
+        {
+          "name": "name",
+          "type": "string"
+        }
       ]
     },
     {
