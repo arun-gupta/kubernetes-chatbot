@@ -36,7 +36,7 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
         // kops create cluster {name}
         // --master-count {masterNodes}
         // --node-count {workerNodes}
-        // --zones {availabilityZone}
+        // --zones {availabilityZones}
         // --state=s3://{s3Bucket}
         // --yes
         return LexResponse.getLexResponse("Do you want to create a Kubernetes cluster " +
@@ -50,6 +50,7 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
     private LexResponse getScaleResponse(Map<String, String> slots) {
         KubernetesCluster cluster = getCluster(slots);
 
+        // ??
         return LexResponse.getLexResponse("Do you want to scale the Kubernetes cluster " +
                 "named " + cluster.name + " with " +
                 cluster.masterNodes + " worker nodes?", "Kubernetes cluster scale");
@@ -76,11 +77,11 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
             cluster.setRegion(KubernetesCluster.DEFAULT_REGION);
 
             // get the list of AZ in this region using API
-            cluster.setAvailabilityZone("");
+            cluster.setAvailabilityZones("");
         }
 
         if (slots.get("s3") == null) {
-            // create a s3 bucket and use that name
+            // create a s3 bucket using API
             String s3 = "";
             cluster.setS3Bucket(s3);
         }

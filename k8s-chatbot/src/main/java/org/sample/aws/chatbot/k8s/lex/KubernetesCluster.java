@@ -6,7 +6,7 @@ public class KubernetesCluster {
     String region;
     String s3Bucket;
     String name;
-    String availabilityZone;
+    String availabilityZones;
 
     static final String DEFAULT_REGION = "us-west-1";
 
@@ -50,11 +50,11 @@ public class KubernetesCluster {
         this.name = name;
     }
 
-    public String getAvailabilityZone() {
-        return availabilityZone;
+    public String getAvailabilityZones() {
+        return availabilityZones;
     }
 
-    public void setAvailabilityZone(String availabilityZone) {
-        this.availabilityZone = availabilityZone;
+    public void setAvailabilityZones(String availabilityZones) {
+        this.availabilityZones = availabilityZones;
     }
 }
