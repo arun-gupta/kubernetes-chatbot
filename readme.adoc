@@ -23,7 +23,7 @@ Here is a sample communication:
 
 <ADD IMAGE>
 
-This bot can be integrated with your own Slack team by following the instructions ADD LINK.
+This bot can be integrated with your own Slack team by following the instructions at https://docs.aws.amazon.com/lex/latest/dg/slack-bot-back-in-slack-console.html.
 
 == TODO
 
