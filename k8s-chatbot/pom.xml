@@ -24,7 +24,7 @@
         <dependency>
             <groupId>org.sample.aws.lex</groupId>
             <artifactId>lex-java</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>0.1</version>
         </dependency>
     </dependencies>
 
