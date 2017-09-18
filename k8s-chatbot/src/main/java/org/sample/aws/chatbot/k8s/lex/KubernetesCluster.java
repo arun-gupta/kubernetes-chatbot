@@ -57,4 +57,14 @@ public class KubernetesCluster {
     public void setAvailabilityZones(String availabilityZones) {
         this.availabilityZones = availabilityZones;
     }
+
+    public void addAvailabilityZone(String az) {
+        if (null == availabilityZones) {
+            availabilityZones = "";
+        } else {
+            availabilityZones += ", ";
+        }
+
+        availabilityZones += az;
+    }
 }
