@@ -1,4 +1,5 @@
 CreateIntent create a kubernetes cluster
+CreateIntent create a kubernetes cluster in {region} region
 CreateIntent create a kubernetes cluster with {worker} worker
 CreateIntent create a kubernetes cluster with {worker} worker nodes
 CreateIntent create a kubernetes cluster with {master} master
