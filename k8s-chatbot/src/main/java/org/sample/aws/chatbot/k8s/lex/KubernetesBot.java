@@ -22,18 +22,20 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
 
     @Override
     public LexResponse handleRequest(LexRequest request, Context context) {
-        log.info("onIntent requestId={} intent={}", context.getAwsRequestId(), request.getCurrentIntent().getName());
+        String intent = request.getCurrentIntent().getName();
 
-        if ("CreateIntent".equals(request.getCurrentIntent().getName())) {
+        log.info("onIntent requestId={} intent={}", context.getAwsRequestId(), intent);
+
+        if ("KubernetesCreateIntent".equals(intent)) {
             return getCreateResponse(request.getCurrentIntent().getSlots());
-        } else if ("ScaleIntent".equals(request.getCurrentIntent().getName())) {
+        } else if ("KubernetesScaleIntent".equals(intent)) {
             return getScaleResponse(request.getCurrentIntent().getSlots());
-        } else if ("DeleteIntent".equals(request.getCurrentIntent().getName())) {
+        } else if ("KubernetesDeleteIntent".equals(intent)) {
             return getDeleteResponse(request.getCurrentIntent().getSlots());
-        } else if ("AMAZON.HelpIntent".equals(request.getCurrentIntent().getName())) {
+        } else if ("AMAZON.HelpIntent".equals(intent)) {
             return getHelpResponse();
         } else {
-            throw new RuntimeException("Invalid Intent: " + request.getCurrentIntent().getName());
+            throw new RuntimeException("Invalid Intent: " + intent);
         }
     }
 
@@ -46,12 +48,12 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
         // --zones {availabilityZones}
         // --state=s3://{s3Bucket}
         // --yes
-        return LexResponse.getLexResponse("Do you want to create a Kubernetes cluster " +
-                "named " + cluster.name + " with " +
-                cluster.masterNodes + " master nodes, " +
-                cluster.workerNodes + " worker nodes," +
-                "in " + cluster.region + " region" +
-                "using " + cluster.s3Bucket + " s3 bucket?", "Kubernetes cluster create");
+        return LexResponse.getLexResponse("Do you want to create a Kubernetes cluster with the following values? \n" +
+                "Name: " + cluster.name + "\n" +
+                "Region: " + cluster.region + "\n" +
+                "Master: " + cluster.masterNodes + "\n" +
+                "Worker: " + cluster.workerNodes + "\n" +
+                "S3 bucket: " + cluster.s3Bucket + "\n", "Kubernetes cluster create");
     }
 
     private LexResponse getScaleResponse(Map<String, String> slots) {
@@ -91,10 +93,8 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
         } else {
             cluster.setRegion(slots.get("region"));
         }
-        final AmazonEC2 ec2 = AmazonEC2ClientBuilder.defaultClient();
-        DescribeAvailabilityZonesRequest request = new DescribeAvailabilityZonesRequest();
-        request.withZoneNames(cluster.getRegion());
-        DescribeAvailabilityZonesResult result = ec2.describeAvailabilityZones(request);
+        final AmazonEC2 ec2 = AmazonEC2ClientBuilder.standard().withRegion(cluster.getRegion()).build();
+        DescribeAvailabilityZonesResult result = ec2.describeAvailabilityZones();
         result.getAvailabilityZones().forEach((az) -> {
             cluster.addAvailabilityZone(az.getZoneName());
         });

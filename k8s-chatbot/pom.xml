@@ -63,9 +63,9 @@
                 <configuration>
                     <functionCode>${project.basedir}/target/${project.artifactId}-${project.version}.jar</functionCode>
                     <version>${project.version}</version>
-                    <s3Bucket>starwars-chatbot</s3Bucket>
+                    <s3Bucket>k8s-chatbot</s3Bucket>
                     <region>us-east-1</region>
-                    <lambdaRoleArn>arn:aws:iam::091144949931:role/lambda_services</lambdaRoleArn>
+                    <lambdaRoleArn>arn:aws:iam::091144949931:role/k8s-chatbot</lambdaRoleArn>
                     <publish>true</publish>
 
                     <!-- default -->
@@ -77,7 +77,7 @@
                             {
                                 "functionName": "KubernetesChatbot",
                                 "description": "Kubernetes Chatbot",
-                                "handler": "org.sample.aws.chatbot.k8s.KubernetesBot",
+                                "handler": "org.sample.aws.chatbot.k8s.lex.KubernetesBot"
                             }
                         ]
                     </lambdaFunctionsJSON>
