@@ -11,6 +11,10 @@ Other possible integrations are:
 . Text (Phone/SMS, Facebook Messenger)
 . Voice (Alexa, Phone/Call)
 
+== Build and install
+
+    mvn -f k8s-chatbot/pom.xml install
+
 == Slack
 
 . Get yourself invited to the team: <ADD LINK>
