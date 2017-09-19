@@ -13,6 +13,7 @@ import org.sample.aws.lex.response.LexResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
@@ -42,15 +43,22 @@ public class KubernetesBot implements RequestHandler<LexRequest, LexResponse> {
     private LexResponse getCreateResponse(Map<String, String> slots) {
         KubernetesCluster cluster = getCluster(slots);
 
-        // kops create cluster {name}
-        // --master-count {masterNodes}
-        // --node-count {workerNodes}
-        // --zones {availabilityZones}
-        // --state=s3://{s3Bucket}
-        // --yes
-        return LexResponse.getLexResponse("Do you want to create a Kubernetes cluster with the following values? \n" +
+        String command = "kops-linux create cluster " +
+                cluster.name + " " +
+                "--master-count " + cluster.masterNodes + " " +
+                "--node-count " + cluster.workerNodes + " " +
+                "--zones " + cluster.availabilityZones + " " +
+                "--state=s3://" + cluster.s3Bucket + " " +
+                "--yes";
+
+        try {
+            Process p = Runtime.getRuntime().exec(command);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return LexResponse.getLexResponse("Creating a Kubernetes cluster with the following values: \n" +
                 "Name: " + cluster.name + "\n" +
-                "Region: " + cluster.region + "\n" +
+                "Zones: " + cluster.availabilityZones + "\n" +
                 "Master: " + cluster.masterNodes + "\n" +
                 "Worker: " + cluster.workerNodes + "\n" +
                 "S3 bucket: " + cluster.s3Bucket + "\n", "Kubernetes cluster create");
