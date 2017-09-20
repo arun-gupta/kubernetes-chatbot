@@ -41,10 +41,7 @@
     <build>
         <resources>
             <resource>
-                <directory>${project.basedir}</directory>
-                <includes>
-                    <include>kops-linux</include>
-                </includes>
+                <directory>src/main/resources</directory>
             </resource>
         </resources>
         <plugins>
@@ -75,6 +72,7 @@
                     <region>us-east-1</region>
                     <lambdaRoleArn>arn:aws:iam::091144949931:role/k8s-chatbot</lambdaRoleArn>
                     <publish>true</publish>
+                    <forceUpdate>true</forceUpdate>
 
                     <!-- default -->
                     <runtime>java8</runtime>
